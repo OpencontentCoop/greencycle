@@ -1,0 +1,14 @@
+{
+    "name": "opencontent/greencycle",
+    "description": "Greencycle design",
+    "type": "ezpublish-legacy-extension",
+    "license": "GPL-2.0",
+    "minimum-stability": "dev",
+    "require": {
+        "ezsystems/ezpublish-legacy-installer": "*",
+        "opencontent/ocopendata-ls": "~2.19.2"
+    },
+        "extra": {
+            "ezpublish-legacy-extension-name": "greencycle"
+    }
+}

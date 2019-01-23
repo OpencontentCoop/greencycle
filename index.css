@@ -1,0 +1,204 @@
+@import "../openpa_designitalia/themes/base/base";
+@import "../openpa_designitalia/themes/base/compat";
+@import "../openpa_designitalia/themes/base/organigramma";
+@import "../openpa_designitalia/themes/base/openpa";
+@import "../openpa_designitalia/themes/base/owl.theme.default";
+
+/* Start theme */
+/*
+ *	Only apply to body class="greencycle"
+ */
+.greencycle {
+  font-family: var(--Theme-font-family-sans);
+}
+
+/**
+ * 	Brand color
+ */
+:root {
+  --Color-primary: #4db748;
+  --Color-secondary: #1ba6b0;
+  --Prose-color-text-primary: #1c2024;
+  --Prose-color-text-secondary: #71695d;
+  --Prose-color-text-highlighted: #b2ebed;
+  --Prose-color-link: var(--Color-secondary);
+  --Prose-color-link-hover: var(--Color-secondary);
+  --Prose-color-link-visited: var(--Color-secondary);
+  --Color-focus: rgba(255,255,255, 0);
+}
+
+/**
+ * 	Fonts
+ */
+:root {
+  --Theme-font-family-sans: Titillium Web, HelveticaNeue-Light, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
+}
+
+a{
+  color: var(--Color-secondary);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+h1, h2, h3, h4, h5, .u-text-h5 {
+  color: var(--Color-primary) !important;
+}
+
+.Linklist a,
+.Treeview--default li[aria-expanded=true] li a,
+.Linklist a:hover {
+  color: var(--Color-secondary) !important;
+}
+
+.Linklist-link.Linklist-link--lev1, .Linklist-link.Linklist-link--lev1:hover {
+  background-color: var(--Color-secondary) !important;
+}
+
+button, input[type=submit]{
+  cursor: pointer;
+}
+
+a:focus {
+  background: var(--Color-focus);
+  outline: var(--Color-focus) solid 3px;
+  color: var(--Color-primary);
+}
+
+
+
+#toolbar{
+@extend .u-hidden;
+@extend .u-md-block;
+@extend .u-lg-block;
+}
+
+.GridStriped .Grid:nth-child(2n) {
+@extend .u-background-grey-10;
+}
+
+.ContainerStriped .ItemStriped:nth-child(2n) {
+@extend .u-background-grey-10;
+}
+
+.Header-banner {
+  background-color: var(--Color-primary) !important;
+}
+.Megamenu--default {
+  background-color: var(--Color-primary) !important;
+}
+
+.Megamenu--default  .Megamenu-subnavGroup>li>a {
+  color: var(--Color-secondary) !important;
+}
+
+/*.Header-banner span {
+  text-transform: uppercase;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 0.9em !important;
+  font-weight: 200;
+}*/
+
+.Header-logo img {
+
+  height: 5.5rem;
+  width: 5.5rem;
+
+  @media (--sm-viewport) {
+    height: 7.5rem;
+    width: 7.5rem;
+  }
+
+  @media (--md-viewport) {
+    height: 9.5rem;
+    width: 9.5rem;
+  }
+
+  @media (--lg-viewport) {
+    height: 10.5rem;
+    width: 10.5rem;
+  }
+}
+
+
+.Header-navbar {
+  background-color: var(--Color-white) !important;
+  border-bottom: none;
+}
+
+.Header-search .Form-field {
+  border: 1px solid #ccc;
+}
+
+.Header-search .Form-input {
+  border: none;
+}
+
+.Header-searchTrigger button,
+.Header-search button {
+  @extend .u-background-white;
+  @extend .u-color-50;
+}
+
+.Hamburger-toggle,
+.Hamburger-toggle:before,
+.Hamburger-toggle:after {
+  background: var(--Color-black) !important;
+}
+
+.Hamburger-toggle.is-active {
+  background-color: transparent !important;
+}
+
+.Hamburger-toggle.is-active:before,
+.Hamburger-toggle.is-active:after {
+  background-color: var(--Color-white) !important;
+}
+
+.Header-toggleText,
+.Header-titleLink a {
+  color: var(--Color-black) !important;
+}
+
+/* Content */
+/*.Card-titleLink {
+  color: var(--Prose-color-text-primary) !important;
+  @extend .u-text-h4;
+}*/
+
+.Card-text > p {
+  color: var(--Prose-color-text-secondary) !important;
+}
+
+/* Footer */
+/*.valutation-container {
+  background-color: #00334c;
+}
+
+.footer-container {
+  background-color: var(--Color-footer);
+}*/
+
+.Headroom-hideme {
+  max-height: none;
+}
+
+.Headroom-hideme.Header-homebanner #Imageheader .inner {
+  padding-top: 19%;
+}
+
+.owl-theme .owl-nav {
+  top: -83px !important;
+}
+
+.openpa-full.class-homepage .content {
+  @extend .u-padding-bottom-none;
+}
+
+/*.openpa-panel {
+  border-radius: 0 !important;
+  border: 1px solid #ccc;
+}*/
+
+.goto a {
+  color: var(--Color-secondary) !important;
+}

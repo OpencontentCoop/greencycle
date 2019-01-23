@@ -1,0 +1,12 @@
+node_modules
+node_modules/*
+dist
+.tmp
+bower_components
+config.local.js
+.publish
+build
+npm-debug.log
+styleguide
+gh-pages
+
