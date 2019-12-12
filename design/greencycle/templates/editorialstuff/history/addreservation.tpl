@@ -1,0 +1,1 @@
+{'Add new reservation'|i18n('editorialstuff/mail')}

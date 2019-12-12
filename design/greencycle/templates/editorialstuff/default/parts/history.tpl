@@ -3,9 +3,9 @@
         <table class="Table Table--striped Table--hover Table--withBorder">
             <thead>
                 <tr class="u-border-bottom-xs">
-                    <th class="u-textLeft">Data</th>
-                    <th class="u-textLeft">Autore</th>
-                    <th class="u-textLeft">Azione</th>
+                    <th>{'Date'|i18n('editorialstuff/dashboard')}</th>
+                    <th>{'Author'|i18n('editorialstuff/dashboard')}</th>
+                    <th>{'Action'|i18n('editorialstuff/dashboard')}</th>
                 </tr>
             </thead>
             <tbody>

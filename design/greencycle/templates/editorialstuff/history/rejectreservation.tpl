@@ -1,0 +1,1 @@
+{'Reject reservation'|i18n('editorialstuff/mail')} {$item.parameters.reservation}

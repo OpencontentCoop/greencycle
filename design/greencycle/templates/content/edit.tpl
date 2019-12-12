@@ -36,7 +36,11 @@
         {/foreach}
     {/if}
 
-    {include uri="design:content/edit_attribute.tpl"}
+    {if $object.class_identifier|eq('reservation')}
+        {include uri="design:content/edit_attribute_reservation.tpl"}
+    {else}
+        {include uri="design:content/edit_attribute.tpl"}
+    {/if}
 
     <div class="Grid Grid--withGutter u-padding-bottom-xxl">
         <div class="Grid-cell u-size1of2">

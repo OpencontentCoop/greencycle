@@ -4,5 +4,6 @@
 ExtensionRepositories[]=greencycle
 
 ModuleList[]=register
+ModuleList[]=reservation
 
 */ ?>

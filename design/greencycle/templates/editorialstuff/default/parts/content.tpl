@@ -44,14 +44,14 @@
 
 
     <div class="Grid Grid--withGutter u-padding-all-s">
-        <div class="Grid-cell u-size2of12"><strong><em>Autore</em></strong></div>
+        <div class="Grid-cell u-size2of12"><strong><em>{'Author'|i18n('editorialstuff/dashboard')}</em></strong></div>
         <div class="Grid-cell u-size10of12">
             {if $post.object.owner}{$post.object.owner.name|wash()}{else}?{/if}
         </div>
     </div>
 
     <div class="Grid Grid--withGutter u-padding-all-s">
-        <div class="Grid-cell u-size2of12"><strong><em>Data di pubblicazione</em></strong></div>
+        <div class="Grid-cell u-size2of12"><strong><em>{'Publication date'|i18n('editorialstuff/dashboard')}</em></strong></div>
         <div class="Grid-cell u-size10of12">
             <p>{$post.object.published|l10n(shortdatetime)}</p>
             {if $post.object.current_version|gt(1)}
@@ -59,21 +59,6 @@
                             href={$post.object.main_node.creator.main_node.url_alias|ezurl}>{$post.object.main_node.creator.name}</a>
                     il {$post.object.modified|l10n(shortdatetime)}</small>
             {/if}
-        </div>
-    </div>
-
-
-    <div class="Grid Grid--withGutter u-padding-all-s">
-        <div class="Grid-cell u-size2of12"><strong><em>Collocazioni</em></strong></div>
-        <div class="Grid-cell u-size10of12">
-            <ul class="list-unstyled">
-                {foreach $post.object.assigned_nodes as $item}
-                    <li>
-                        <a href={$item.url_alias|ezurl()}>{$item.path_with_names}</a>
-                        {if $item.node_id|eq($post.object.main_node_id)}(principale){/if}
-                    </li>
-                {/foreach}
-            </ul>
         </div>
     </div>
 

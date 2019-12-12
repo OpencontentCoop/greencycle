@@ -4,5 +4,7 @@
 [GeneralSettings]
 theme=greencycle
 
+[DataHandlers]
+Handlers[ocmap_markers]=GreencycleDataHandlerOCMapMarkers
 
 */ ?>
