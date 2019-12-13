@@ -125,13 +125,13 @@
         {{for searchHits}}        
             <tr>
                 <td class="text-center">
-                    <a href="/editorialstuff/edit/{{:factory}}/{{:metadata.id}}" class="btn btn-info">{/literal}{'Detail'|i18n('editorialstuff/dashboard')}{literal}</a>
+                    <a href="{{:~stuffUrl(factory, metadata.id)}}" class="btn btn-info">{/literal}{'Detail'|i18n('editorialstuff/dashboard')}{literal}</a>
                 </td>
                 <td>{{if section}}{{:section.name}}{{/if}}</td>
-                <td>{{if metadata.ownerName}}{{:~i18n(metadata.ownerName)}}{{else}}?{{/if}}</td>
+                <td>{{if metadata.ownerName}}{{:~i18nWithFallback(metadata.ownerName)}}{{else}}?{{/if}}</td>
                 <td>{{:~formatDate(metadata.published, 'D/MM/YYYY')}}</td>
                 <td>{{:stateName}}</td>
-                <td>{{:~i18n(metadata.name)}}</td>
+                <td>{{:~i18nWithFallback(metadata.name)}}</td>
             </tr>
         {{/for}}
     {{else}}
@@ -175,10 +175,54 @@ var sectionsMap = [];
 sectionsMap.push({ldelim}name: "{$section.name|wash(javascript)}", identifier: "{$section.identifier}"{rdelim});
 {/if}{/foreach} 
 
+$.opendataTools.settings('locale', "{$moment_language}");    
+$.opendataTools.settings('languages', ['{ezini('RegionalSettings','SiteLanguageList')|implode("','")}']);
+$.opendataTools.settings('accessPath', "{''|ezurl(no,full)}");
 {literal}
 $.opendataTools.settings('language', '{/literal}{ezini('RegionalSettings','Locale')}{literal}');
-$.views.helpers($.opendataTools.helpers);
 $(document).ready(function () {
+
+    $.views.helpers($.extend({}, $.opendataTools.helpers, {
+        'objectUrl': function (id) {
+            return $.opendataTools.settings('accessPath') + '/openpa/object/' + id;
+        },
+        'stuffUrl': function (factory, id) {
+            return $.opendataTools.settings('accessPath') + '/editorialstuff/edit/' + factory + '/' + id;
+        },
+        'i18nWithFallback': function (data, key) {
+            var currentLanguage = $.opendataTools.settings('locale');
+            var fallbackLanguages = $.opendataTools.settings('languages');
+            var getData = function(data, key, currentLanguage){
+                var returnData = false;
+                if (data && key) {
+                    if (typeof data[currentLanguage] != 'undefined' && data[currentLanguage][key]) {
+                        returnData = data[currentLanguage][key];
+                    }                    
+                } else if (data) {
+                    if (typeof data[currentLanguage] != 'undefined' && data[currentLanguage]) {
+                        returnData = data[currentLanguage];
+                    }                    
+                }
+                return returnData != 0 ? returnData : false;
+            }
+            var returnData = getData(data, key, currentLanguage);                
+            if (returnData === false){
+                $.each(fallbackLanguages, function(){                        
+                    returnData = getData(data, key, ''+this);                        
+                    return returnData === false;
+                });
+            }
+
+            return returnData;
+        },
+        'imageUrl': function (images) {                
+            if (images.length > 0) {
+                return $.opendataTools.settings('accessPath') + '/offer/image/' + images[0].id;
+            }
+            return null;
+        }
+    }));
+
     $('[data-factory]').each(function(){
         var self = $(this);
         var container = $(this).parents('.factory-dashboard');

@@ -2,6 +2,12 @@
 
 class Organization extends OCEditorialStuffPostDefault
 {
+    public function setCurrentLanguage($currentLanguage)
+    {
+        $this->object->setCurrentLanguage($currentLanguage);
+        $this->dataMap = $this->object->fetchDataMap(false, $currentLanguage);        
+    }
+    
     public static function fromId($id)
     {
         $factory = OCEditorialStuffHandler::instance('private_organization', array())->getFactory();

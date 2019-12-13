@@ -6,5 +6,8 @@ theme=greencycle
 
 [DataHandlers]
 Handlers[ocmap_markers]=GreencycleDataHandlerOCMapMarkers
+Handlers[user_languages]=GreencycleDataHandlerUserLanguages
 
+[TopMenu]
+IdentificatoriMenu[]=offers
 */ ?>

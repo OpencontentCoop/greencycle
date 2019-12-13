@@ -29,6 +29,18 @@ Subdir=templates
 Match[class_identifier]=request
 Match[attribute_identifier]=municipality
 
+[datatype_edit_priority_language]
+Source=content/datatype/edit/ezstring.tpl
+MatchFile=datatype/edit/priority_language.tpl
+Subdir=templates
+Match[class_identifier]=user
+Match[attribute_identifier]=priority_language
 
+[datatype_edit_other_languages]
+Source=content/datatype/edit/ezselection.tpl
+MatchFile=datatype/edit/other_languages.tpl
+Subdir=templates
+Match[class_identifier]=user
+Match[attribute_identifier]=other_languages
 
 */ ?>
