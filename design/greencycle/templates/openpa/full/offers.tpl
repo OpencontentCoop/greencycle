@@ -13,7 +13,7 @@
 
 <div class="openpa-full class-{$node.class_identifier}">
     <div class="title">
-        {include uri='design:openpa/full/parts/node_languages.tpl'}
+        {*include uri='design:openpa/full/parts/node_languages.tpl'*}
         <h2>{$node.name|wash()}</h2>
     </div>
     <div class="content-container">

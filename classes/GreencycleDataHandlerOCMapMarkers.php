@@ -20,6 +20,46 @@ class GreencycleDataHandlerOCMapMarkers extends DataHandlerOCMapMarkers
     $this->contentType = eZHTTPTool::instance()->getVariable('contentType', $this->contentType);
   }
 
+  private function load($hashIdentifier)
+  {
+    $query = $this->query;
+    $attributes = $this->attributes;
+    $args = compact(array("hashIdentifier", "query", "attributes"));
+
+    if ( eZINI::instance()->variable('DebugSettings', 'DebugOutput') == 'enabled' ) {
+      return self::find( $query, $attributes);
+    }
+    if (!isset($this->maps[$hashIdentifier])) {
+      $this->maps[$hashIdentifier] = OCMapsCacheManager::getCacheManager($hashIdentifier)->processCache(
+        array(__CLASS__, 'retrieveCache'),
+        array(__CLASS__, 'generateCache'),
+        86400,
+        null,
+        $args
+      );
+    }
+    return $this->maps[$hashIdentifier];
+  }
+
+  public static function generateCache($file, $args)
+  {
+    extract($args);
+    $content = json_encode(self::find($query, $attributes));
+
+    return array(
+      'content' => $content,
+      'scope' => 'maps-cache',
+      'datatype' => 'php',
+      'store' => true
+    );
+  }
+
+  public static function retrieveCache( $file, $mtime, $hashIdentifier )
+  {
+    $content = include( $file );
+    return $content;
+  }
+
   protected static function find($query, $attributes)
   {
     
@@ -110,7 +150,10 @@ class GreencycleDataHandlerOCMapMarkers extends DataHandlerOCMapMarkers
         $this->query = eZHTTPTool::instance()->getVariable('query');
         $this->attributes = explode(',', eZHTTPTool::instance()->getVariable('attribute'));
 
-        return self::find($this->query, $this->attributes);
+        //return self::find($this->query, $this->attributes);
+        $current = eZSiteAccess::current();
+        $sa = isset($current['name']) ? $current['name'] : '';
+        return json_decode($this->load(md5(trim($sa .$this->query . '-' . implode('-', $this->attributes)))), true);
 
       }
     } elseif ($this->contentType == 'marker') {

@@ -49,7 +49,7 @@ try {
     $limitations['custom1'] = ['Class' => [519], 'StateGroup_offer' => [10]];
     $limitations['custom2'] = ['Class' => [520], 'StateGroup_offer' => [14]];
 
-    //eZINI::instance( 'ezfind.ini' )->setVariable( 'LanguageSearch', 'SearchMainLanguageOnly', 'enabled' );
+    eZINI::instance( 'ezfind.ini' )->setVariable( 'LanguageSearch', 'SearchMainLanguageOnly', 'disabled' );
     $data = (array)$contentSearch->search($Param, [
         'accessWord' => 'limited',
         'policies' => $limitations
