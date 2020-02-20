@@ -67,7 +67,9 @@
           {"key": "attribute", "value": attribute},
           {"key": "contentType", "value": "geojson"}
         ];
+        opendataMap.selectLabel = {/literal}"{'Select'|i18n('greencycle')}"{literal};
         opendataMap.loadMap();
+
         {/literal}
       });
     </script>

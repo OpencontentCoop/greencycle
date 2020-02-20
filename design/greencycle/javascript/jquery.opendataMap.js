@@ -7,6 +7,7 @@
     markers: null,
     map: null,
     parameters: [],
+    selectLabel = 'Seleziona',
 
     buildFilterInput: function(facets, facet) {
       for (var i = 0, len = facets.length; i < len; i++) {
@@ -15,7 +16,7 @@
 
         if (facetDefinition.field === facet.name && !facetDefinition.hidden) {
 
-          var select = $('<select id="' + facetDefinition.field + '" data-field="' + facetDefinition.field + '" data-placeholder="Seleziona" name="' + facetDefinition.field + '">');
+          var select = $('<select id="' + facetDefinition.field + '" data-field="' + facetDefinition.field + '" data-placeholder="'+opendataMap.selectLabel+'" name="' + facetDefinition.field + '">');
 
           if (facetDefinition.multiple) {
             select.attr('multiple', 'multiple');
