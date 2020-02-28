@@ -1,3 +1,4 @@
+{if fetch(user, current_user).contentobject_id|ne(14)}
 {ezscript_require( array(
 'leaflet/leaflet.0.7.2.js',
 'ezjsc::jquery',
@@ -74,3 +75,4 @@
 
   </div>
 </div>
+{/if}
