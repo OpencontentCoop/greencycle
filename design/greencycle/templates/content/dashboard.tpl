@@ -2,7 +2,7 @@
     {def $factories = ezini( 'AvailableFactories', 'Identifiers', 'editorialstuff.ini' )}
 {/if}
 {if is_set($items_per_page)|not()}
-    {def $items_per_page = 10}
+    {def $items_per_page = 40}
 {/if}
 {def $sections = fetch( 'content', 'section_list' )}
 {def $current_user = fetch(user, current_user)}
@@ -175,6 +175,13 @@ var sectionsMap = [];
 sectionsMap.push({ldelim}name: "{$section.name|wash(javascript)}", identifier: "{$section.identifier}"{rdelim});
 {/if}{/foreach} 
 
+
+$.opendataTools.settings('endpoint', {ldelim}
+    geo: {'/opendata/api/geo/search/'|ezurl()},
+    search: {'/opendata/api/content/search/'|ezurl()},
+    class: {'/opendata/api/classes/'|ezurl()},
+    tags_tree: {'/opendata/api/tags_tree/'|ezurl()}
+{rdelim}); 
 $.opendataTools.settings('locale', "{$moment_language}");    
 $.opendataTools.settings('languages', ['{ezini('RegionalSettings','SiteLanguageList')|implode("','")}']);
 $.opendataTools.settings('accessPath', "{''|ezurl(no,full)}");
