@@ -1,5 +1,3 @@
-{if fetch(user, current_user).contentobject_id|eq(14)}
-
 {ezscript_require( array(
 	'ezjsc::jquery',
 	'leaflet/leaflet.0.7.2.js',	
@@ -36,11 +34,11 @@
 	'ce_manager', 'telephone',
 	'user', 'circle'
 )}
-<div class="Grid">
-    <div class="Grid-cell u-sizeFull u-sm-size2of3 u-md-size2of3 u-lg-size4of5">
+<div class="Grid u-margin-bottom-m">
+    <div class="Grid-cell u-sizeFull u-sm-size2of3 u-md-size2of3 u-lg-size2of3">
         <div id="map-{$block.id}" style="height: {$height}px; width: 100%"></div>
     </div>
-    <div class="Grid-cell u-sizeFull u-sm-size1of3 u-md-size1of3 u-lg-size1of5" style="height: {$height}px; overflow-y: auto">
+    <div class="Grid-cell u-sizeFull u-sm-size1of3 u-md-size1of3 u-lg-size1of3" style="height: {$height}px; overflow-y: auto">
 		<div class="Accordion Accordion--default fr-accordion js-fr-accordion u-padding-left-m">
 			<h2 class="Accordion-header js-fr-accordion__header fr-accordion__header" id="accordion-header-class">
 	      		<span class="Accordion-link">{'What to show'|i18n('greencycle')}</span>
@@ -58,7 +56,7 @@
 	                               value=""
 	                               type="checkbox"
 	                               checked="checked">
-	                        <span class="Form-fieldIcon u-margin-right-xxs" role="presentation"></span> {$class.name|wash()} <i class="fa fa-spinner fa-spin hide"></i>
+	                        <span class="Form-fieldIcon u-margin-right-xxs" role="presentation"></span> {$class.name|wash()} <span class="count"></span> <i class="fa fa-spinner fa-spin hide"></i>
 	                </fieldset>
 	    		{/foreach}
 	    		</div>
@@ -74,7 +72,7 @@
 	                <div class="u-padding-left-m u-padding-bottom-m">
 	                {foreach $tag_tree.children as $index => $tag}
 	                    <fieldset class="Form-field Form-field--choose hide">                                            
-	                        <label class="Form-label"
+	                        <label class="Form-label tag-filter"
 	                               for="tag-{$tag.id|wash()}">
 	                            <input class="Form-input"
 	                                   id="tag-{$tag.id|wash()}"
@@ -87,7 +85,7 @@
 	                        <div class="u-margin-left-l" style="font-size:.8em">                                              
 	                            {foreach $tag.children as $childTag}
 	                                <fieldset class="Form-field Form-field--choose hide">                                            
-	                                    <label class="Form-label"
+	                                    <label class="Form-label tag-filter"
 	                                           for="tag-{$childTag.id|wash()}">
 	                                        <input class="Form-input"
 	                                               id="tag-{$childTag.id|wash()}"                                               
@@ -117,6 +115,7 @@ $(document).ready(function() {
 	var map = new L.Map('{/literal}map-{$block.id}{literal}', {
         loadingControl: true
     }).setView(new L.LatLng(0, 0), 1);    
+    map.scrollWheelZoom.disable();
     L.tileLayer('//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
@@ -170,6 +169,14 @@ $(document).ready(function() {
 		var identifier = $(this).data('class_id');
 		$(this).prop('checked', true);
 		layers[identifier] = new L.markerClusterGroup();
+        layers[identifier].on('click', function (a) {
+            $.getJSON("{/literal}{'/openpa/data/map_markers'|ezurl(no)}{literal}?contentType=marker&view=panel&id="+a.layer.feature.id, function(data) {
+                var popup = new L.Popup({maxHeight:360});
+                popup.setLatLng(a.layer.getLatLng());
+                popup.setContent(data.content);
+                map.openPopup(popup);
+            });
+        });
 	});	
 	$('[data-tag_id]').each(function(){
 		$(this).prop('checked', false);
@@ -183,7 +190,7 @@ $(document).ready(function() {
             },
             onEachFeature: function (feature, layer) {                        
                 var popup = new L.Popup({maxHeight: 360});
-                popup.setContent(feature.properties.name);
+                popup.setContent(feature.properties.name + ' <i class="fa fa-circle-o-notch fa-spin"></i>');
                 layer.bindPopup(popup);
             }
         });
@@ -191,11 +198,12 @@ $(document).ready(function() {
 	}
 
     var loadData = function(){
-    	$('[data-class_id]:checked').each(function(){
+    	$('[data-class_id]').each(function(){
     		var self = $(this);
     		var identifier = self.data('class_id');
     		var iconName = self.data('icon');
-    		var spinner = self.parent().find('i').show();
+    		var count = self.parent().find('span.count');
+    		var spinner = self.parent().find('i').addClass('show').removeClass('hide');
     		layers[identifier].clearLayers();
     		globalLayer.removeLayer(layers[identifier]);
     		map.removeLayer(layers[identifier]);
@@ -215,9 +223,12 @@ $(document).ready(function() {
     			$.each(facets[0].data, function(id,count){
     				$('[data-tag_id="'+id+'"]').parents('fieldset').removeClass('hide');
     			});
-    			spinner.hide();
+    			spinner.addClass('hide').removeClass('show');
+    			count.html(totalCount);
                 if (totalCount > 0) {                	
-                	layers[identifier].addTo(map);                	
+                	if (self.is(':checked')){
+                		layers[identifier].addTo(map);
+            		}
                 	//map.fitBounds(layers[identifier].getBounds());
                 	globalLayer.addLayer(layers[identifier]);                	
             	}
@@ -228,7 +239,7 @@ $(document).ready(function() {
     	});    	    
     }
 
-    $('[data-class_id]').on('change', function(){
+    $('[data-class_id]').on('change', function(e){
     	var identifier = $(this).data('class_id');
     	if ($(this).is(':checked')){
     		map.addLayer(layers[identifier]);    		
@@ -237,8 +248,22 @@ $(document).ready(function() {
     	}
     	map.fitBounds(globalLayer.getBounds());  
     });
-    $('[data-tag_id]').on('change', function(){
-    	loadData();
+    
+    $('.tag-filter').on('mouseover', function(){  
+    	if ($('i.show').length > 0){
+    		$(this).css('cursor', 'not-allowed');
+    	}else{
+    		$(this).css('cursor', 'default');
+    	}
+	});
+    $('[data-tag_id]').on('click', function(e){    	
+    	if ($('i.show').length > 0){
+    		e.preventDefault();
+    		return false;
+    	}
+    });
+    $('[data-tag_id]').on('change', function(){    	    	
+    	loadData();    	
     });
     loadData();
 })
@@ -291,6 +316,11 @@ $(document).ready(function() {
             }
         });
     });
+classes [private_organization,offer,request,location,event,municipality,ce_manager,user] 
+{field: 'raw[attr_municipality_s]', 'limit': 100, 'sort': 'alpha', name: 'Municipality'},
+{field: 'raw[meta_class_identifier_ms]', 'limit': 100, 'sort': 'alpha', name: 'What to show'},
+{field: 'raw[attr_application_domain_lk]', 'limit': 100, 'sort': 'alpha', name: 'Application Domain'},
+{field: 'raw[attr_material_category_lk]', 'limit': 100, 'sort': 'alpha', name: 'Material'},
+{field: 'raw[attr_type_of_event_lk]', 'limit': 100, 'sort': 'alpha', name: 'Events'},
+{field: 'raw[attr_type_signature_lk]', 'limit': 100, 'sort': 'alpha', name: 'Manifesto Signatures'}
 *}
-
-{/if}
