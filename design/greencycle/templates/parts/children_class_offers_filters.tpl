@@ -9,7 +9,7 @@
 
 {foreach $classes as $class}
   <div class="openpa-widget nav-section">
-    <h2 class="openpa-widget-title">Cerca {$class.name|wash()|downcase()}</h2>
+    <h2 class="openpa-widget-title">{'Search'|i18n('openpa_designitalia')} {$class.name|wash()|downcase()}</h2>
 
     {class_search_form( $class.identifier, hash( 'RedirectNodeID', $node.node_id ) )}
   </div>

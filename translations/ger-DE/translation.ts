@@ -5,39 +5,39 @@
     <name></name>
     <message>
       <source>Select</source>
-      <translation type="unfinished"/>
+      <translation>Wählen</translation>
     </message>
     <message>
       <source>The data has been saved and sent for validation</source>
-      <translation type="unfinished"/>
+      <translation>Die Daten wurden zur Validierung gespeichert und gesendet</translation>
     </message>
     <message>
       <source>When they are validated you will be sent an email notification to the address you specified</source>
-      <translation type="unfinished"/>
+      <translation>Wenn sie validiert sind, werden Sie eine E-Mail-Benachrichtigung an die angegebene Adresse geschickt</translation>
     </message>
     <message>
       <source>Register your organization</source>
-      <translation type="unfinished"/>
+      <translation>Registrieren Sie ihre Organisation</translation>
     </message>
     <message>
       <source>Security code</source>
-      <translation type="unfinished"/>
+      <translation>Sicherheitscode</translation>
     </message>
     <message>
       <source>Input required.</source>
-      <translation type="unfinished"/>
+      <translation>Eingabe erforderlich.</translation>
     </message>
     <message>
       <source>ReCAPTCHA API key not found</source>
-      <translation type="unfinished"/>
+      <translation>ReCAPTCHA-API-Schlüssel nicht gefunden</translation>
     </message>
     <message>
       <source>Cancel</source>
-      <translation type="unfinished"/>
+      <translation>Stornieren</translation>
     </message>
     <message>
       <source>Register</source>
-      <translation type="unfinished"/>
+      <translation>Registrieren</translation>
     </message>
   </context>
 </TS>
