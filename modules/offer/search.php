@@ -50,6 +50,7 @@ try {
     $limitations['custom2'] = ['Class' => [520], 'StateGroup_offer' => [14]];
 
     eZINI::instance( 'ezfind.ini' )->setVariable( 'LanguageSearch', 'SearchMainLanguageOnly', 'disabled' );
+    eZINI::instance( 'ezfind.ini' )->setVariable( 'SearchFilters', 'RawFilterList', array() );
     $data = (array)$contentSearch->search($Param, [
         'accessWord' => 'limited',
         'policies' => $limitations

@@ -26,9 +26,6 @@ class GreencycleDataHandlerOCMapMarkers extends DataHandlerOCMapMarkers
     $attributes = $this->attributes;
     $args = compact(array("hashIdentifier", "query", "attributes"));
 
-    if ( eZINI::instance()->variable('DebugSettings', 'DebugOutput') == 'enabled' ) {
-      return self::find( $query, $attributes);
-    }
     if (!isset($this->maps[$hashIdentifier])) {
       $this->maps[$hashIdentifier] = OCMapsCacheManager::getCacheManager($hashIdentifier)->processCache(
         array(__CLASS__, 'retrieveCache'),

@@ -43,4 +43,19 @@ Subdir=templates
 Match[class_identifier]=user
 Match[attribute_identifier]=other_languages
 
+
+[block_GreenCycleMap]
+Source=block/view/view.tpl
+MatchFile=block/greencycle_map.tpl
+Subdir=templates
+Match[type]=GreenCycleMap
+Match[view]=default
+
+[block_GreenCycleMap2]
+Source=block/view/view.tpl
+MatchFile=block/greencycle_map.tpl
+Subdir=templates
+Match[type]=GreenCycleMap
+Match[view]=default_wide
+
 */ ?>
