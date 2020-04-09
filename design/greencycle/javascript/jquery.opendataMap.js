@@ -7,7 +7,7 @@
     markers: null,
     map: null,
     parameters: [],
-    selectLabel = 'Seleziona',
+    selectLabel: 'Seleziona',
 
     buildFilterInput: function(facets, facet) {
       for (var i = 0, len = facets.length; i < len; i++) {

@@ -22,7 +22,7 @@
   {/if}
 {if $block.view|eq('default_wide')}</div>{/if}
 
-{def $tag_roots = array(257,292,372,452)}
+{def $tag_roots = array(257,292,372,452,195)}
 {def $classes = fetch(class, list, hash('class_filter', array('private_organization','offer','request','location','event','municipality','ce_manager','user')))}
 {def $icons = hash(
 	'private_organization', 'building',
@@ -41,7 +41,7 @@
     <div class="Grid-cell u-sizeFull u-sm-size1of3 u-md-size1of3 u-lg-size1of3" style="height: {$height}px; overflow-y: auto">
 		<div class="Accordion Accordion--default fr-accordion js-fr-accordion u-padding-left-m">
 			<h2 class="Accordion-header js-fr-accordion__header fr-accordion__header" id="accordion-header-class">
-	      		<span class="Accordion-link">{'What to show'|i18n('greencycle')}</span>
+	      		<span class="Accordion-link" style="padding:0 !important">{'What to show'|i18n('greencycle')}</span>
 	    	</h2>
 	        <div id="accordion-panel-class" class="Accordion-panel fr-accordion__panel js-fr-accordion__panel">
 	    		<div class="u-padding-left-m u-padding-bottom-m">
@@ -66,7 +66,7 @@
 	            {def $tag_tree = api_tagtree($tag_root)}
 	            {if is_set($tag_tree.children)}                                                             
 				<h2 class="Accordion-header js-fr-accordion__header fr-accordion__header" id="accordion-header-{$tag_tree.id}">
-					<span class="Accordion-link">{$tag_tree.keyword|wash()}</span>
+					<span class="Accordion-link" style="padding:0 !important">{$tag_tree.keyword|wash()}</span>
 				</h2>
 				<div id="accordion-panel-{$tag_tree.id}" class="Accordion-panel fr-accordion__panel js-fr-accordion__panel">                
 	                <div class="u-padding-left-m u-padding-bottom-m">

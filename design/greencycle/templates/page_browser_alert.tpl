@@ -4,7 +4,7 @@
 document.addEventListener('DOMContentLoaded', function(event) {
 cookieChoices.cookieSecure = {/literal}{cond(ezini('Session','CookieSecure')|eq('true'), 'true', 'false')}{literal};
 cookieChoices.showCookieConsentBar(
-{/literal}{"This site uses technical, analytics and third-party cookies. By continuing to browse, you accept the use of cookies."|i18n('greencycle')}{literal},
+  "{/literal}{"This site uses technical, analytics and third-party cookies. By continuing to browse, you accept the use of cookies."|i18n('greencycle')}{literal}",
   "{/literal}{'Accept'|i18n('openpa_designitalia')}{literal}",
   "{/literal}{'Informations'|i18n('openpa_designitalia')}{literal}",
 '{/literal}{'openpa/cookie'|ezurl(no,full)}{literal}'
